@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Uhm ano ba</title>
+    <link href="https://fonts.googleapis.com/css2?family=Sofia&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Sofia&display=swap" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f8ff;
+            font-family: Arial, sans-serif;
+            margin: 0; /* Reset margin to remove white space around the video */
+            overflow: hidden; /* Prevent scrollbars */
+        }
+
+        .video-background {
+            position: fixed;
+            right: 0;
+            bottom: 0;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1; /* Set z-index to make sure the video stays behind other content */
+            background-size: cover;
+        }
+
+        .container {
+            text-align: center;
+            position: relative; /* Ensure proper stacking of content on top of the video */
+            z-index: 1; /* Ensure content appears above the video */
+        }
+
+        .animate {
+            font-size: 2em;
+            opacity: 0;
+            animation: fadeIn 3s forwards;
+            font-family: "Sofia", cursive;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 70px;
+            color: white;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .button-container {
+            margin-top: 20px;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: rgb(255, 96, 239);
+            animation: confetti-fall 3s linear infinite;
+        }
+
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100vh) rotateZ(0deg);
+            }
+            100% {
+                transform: translateY(100vh) rotateZ(360deg);
+            }
+        }
+
+        #nameInput{
+            font-family: "Patrick Hand", cursive;
+             font-weight: 400;
+            font-style: normal;
+            font-size: 30px;
+            color: rgb(253, 225, 255);
+        }
+        button{
+            background-color: transparent;
+            font-size: 30px;
+            color: white;
+            border-color: white;
+        }
+        button:hover{
+            box-shadow: 0px 1px 15px orange;
+        }
+
+        .birthday {
+            font-family: "Sofia", cursive;
+            font-weight: 400;
+            font-style: normal;
+            font-size: 90px;
+            color: white;
+        }
+
+        .birthday span {
+            display: inline-block;
+            animation: jump 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes jump {
+            0% {
+                transform: translateY(0);
+            }
+            30% {
+                transform: translateY(-95px);
+            }
+            60% {
+                transform: translateY(-20px);
+            }
+            80% {
+                transform: translateY(-70px);
+            }
+            100% {
+                transform: translateY(-50px);
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="video-background">
+    <video autoplay muted loop poster="poster.jpg" id="bgvid">
+        <source src="orange (1).mp4" type="video/mp4">
+    </video>
+</div>
+<div class="container">
+    <div id="welcomeMessage" class="animate">Hi! Welcome</div>
+    <div id="nameInput" class="hidden">
+        <label for="name">Please enter your name:</label>
+        <input type="text" id="name" name="name">
+        <button onclick="greetUser()">Submit</button>
+    </div>
+    <div id="greeting" class="hidden"></div>
+    <div id="helloButtonContainer" class="hidden button-container">
+        <button onclick="sayHello()">Hello</button>
+    </div>
+    <div id="birthdayMessage" class="hidden birthday">
+        <p><span class="birthday-letter">H</span><span class="birthday-letter">a</span><span class="birthday-letter">p</span><span class="birthday-letter">p</span><span class="birthday-letter">y</span> <span class="birthday-letter">B</span><span class="birthday-letter">i</span><span class="birthday-letter">r</span><span class="birthday-letter">t</span><span class="birthday-letter">h</span><span class="birthday-letter">d</span><span class="birthday-letter">a</span><span class="birthday-letter">y</span>!</p>
+        <button onclick="sayThanks()">Thanks</button>
+    </div>
+    <div id="confettiContainer"></div>
+</div>
+<script>
+    const video = document.getElementById('bgvid');
+
+    document.addEventListener('DOMContentLoaded', function() {
+        video.play();
+        setTimeout(showNameInput, 3000);
+    });
+
+    function showNameInput() {
+        document.getElementById('welcomeMessage').classList.add('hidden');
+        document.getElementById('nameInput').classList.remove('hidden');
+    }
+
+    function greetUser() {
+        const name = document.getElementById('name').value;
+        if (name) {
+            document.getElementById('nameInput').classList.add('hidden');
+            const greeting = document.getElementById('greeting');
+            greeting.textContent = `Hello, ${name}! Nice to meet you!`;
+            greeting.classList.remove('hidden');
+            document.getElementById('helloButtonContainer').classList.remove('hidden');
+        } else {
+            alert("Please enter your name.");
+        }
+    }
+
+    function sayHello() {
+        document.getElementById('welcomeMessage').classList.add('hidden');
+        document.getElementById('nameInput').classList.add('hidden');
+        document.getElementById('greeting').classList.add('hidden');
+        document.getElementById('helloButtonContainer').classList.add('hidden');
+        const birthdayMessage = document.getElementById('birthdayMessage');
+        birthdayMessage.classList.remove('hidden');
+        // Call function to start confetti
+        startConfetti();
+    }
+
+    function sayThanks() {
+        document.body.innerHTML = `
+            <div style="background-color: orange; width: 100%; height: 100%; padding: 50px;" class="container">
+                <p style="font-size: 3em; color: white;">How are you feeling today?</p>
+                <div class="button-container">
+                    <a href="happy.html"><img style="width: 200px;" src="happy.png"></a>
+                    <a href="sad.html"><img style="width: 200px;" src="sad.png"></a>
+                </div>
+            </div>
+        `;
+    }
+
+    function startConfetti() {
+        const confettiContainer = document.getElementById('confettiContainer');
+        for (let i = 0; i < 100; i++) {
+            const confetti = document.createElement('div');
+            confetti.classList.add('confetti');
+            confetti.style.left = Math.random() * 100 + 'vw';
+            confetti.style.animationDelay = Math.random() * 3 + 's';
+            confettiContainer.appendChild(confetti);
+        }
+    }
+
+</script>
+</body>
+</html>

@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>hehe</title>
+  <link href="https://fonts.googleapis.com/css2?family=Sofia&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      overflow: hidden;
+    }
+
+    #video-background {
+      position: fixed;
+      right: 0;
+      bottom: 0;
+      min-width: 100%; 
+      min-height: 100%;
+      width: auto;
+      height: auto;
+      z-index: -1000;
+      background-size: cover;
+      transition: opacity 2s;
+    }
+
+    .paper {
+      position: relative;
+      width: 500px;
+      height: 320px;
+      perspective: 1000px;
+    }
+
+    .paper-inner {
+      width: 100%;
+      height: 100%;
+      transition: transform 0.5s;
+      transform-style: preserve-3d;
+    }
+
+    .paper.opened .paper-inner {
+      transform: rotateY(-180deg);
+    }
+
+    .paper .front,
+    .paper .back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background-color: #fff;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+      box-sizing: border-box;
+      backface-visibility: hidden;
+    }
+
+    .paper .back {
+      transform: rotateY(180deg);
+    }
+
+    .letter {
+      text-align: justify;
+      font-family: Arial, sans-serif;
+      color: #333;
+    }
+
+    .letter h1 {
+      font-size: 18px;
+      margin-bottom: 10px;
+    }
+
+    .letter p {
+      margin-bottom: 15px;
+    }
+  </style>
+</head>
+<body>
+    <video autoplay loop muted id="video-background">
+    <source src="orange.mp4" type="video/mp4">
+
+  </video>
+
+  <div class="paper" onclick="togglePaper()">
+    <div class="paper-inner">
+      <div class="front">
+        <img src="Meagan (1).png" alt="Folded Paper" style="width: 100%; height: 100%;">
+      </div>
+      <div class="back">
+        <div class="letter">
+          <h1>DON'T BE SAD</h1>
+          <p style="font-family: Sofia, cursive; font-weight: 400;font-style: normal; font-size: 25px;
+          color: rgb(255, 128, 0);">H A P P Y &nbsp; B I R T H D A Y !</p>
+          <p>
+            Despite the stress of the past few days and today's exam, I hope you managed to find some time to celebrate and feel happy. Sorry if this is a bit cringe, but bear with me. Wishing you all the best on your special day!
+          </p>
+          <p>Didn't have the time to learn your favorite songs, but I hope you'll still enjoy this piano cover and that it brings some joy to your day.</p>
+          <a href="https://youtu.be/kAfxhK1n3Hk?si=rfPo7FGOd1_dADZp">CLICK HERE TO VIEW</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function togglePaper() {
+      const paper = document.querySelector('.paper');
+      paper.classList.toggle('opened');
+    }
+  </script>
+</body>
+</html>
